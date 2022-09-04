@@ -1,0 +1,22 @@
+* {
+	box-sizing: border-box;
+}
+
+img {
+	border-radius: 50%;
+}
+
+@media screen and (max-width: 480px) {
+	.logo-and-link {
+		flex-direction: column;
+		gap: 16px;
+		align-items: center;
+	}
+	.navlink {
+		gap: 16px;
+		flex-direction: column;
+	}
+	.blogs {
+		grid-template-columns: repeat(1, 1fr) !important;
+	}
+}
