@@ -223,3 +223,9 @@ function closeModal() {
 }
 
 modalButton.addEventListener('click', closeModal);
+
+const date = new Date();
+const siteTitle = document.title;
+
+document.getElementById('footer-date').innerText = `${date.getFullYear()}`;
+document.getElementById('footer-title').innerText = siteTitle;
