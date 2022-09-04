@@ -216,3 +216,10 @@ function openModal(title, article, author, view) {
 	modalAuthorName.innerText = author.name;
 	modalTotalView.innerText = view;
 }
+
+function closeModal() {
+	modalContainer.style.opacity = 0;
+	modalContainer.style.pointerEvents = 'none';
+}
+
+modalButton.addEventListener('click', closeModal);
