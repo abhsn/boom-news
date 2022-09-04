@@ -62,13 +62,41 @@
     </header>
 
     <main class="my-8 mx-16 flex flex-col justify-center items-center">
+			<!-- category counter -->
 			<section class="bg-red-400 w-full py-4 px-4 text-white hidden rounded-lg">
 				<h3 id="category-item-counter"></h3>
 			</section>
+			<!-- spinner -->
       <section
         id="spinner"
         class="hidden mt-8 border-8 border-red-400 w-40 h-40 relative border-y-transparent"
       ></section>
+			<!-- modal -->
+			<section id="modal-container" class="opacity-0 pointer-events-none fixed top-0 left-0 flex justify-center items-center bg-transparent w-screen h-screen">
+				<div id="modal" class="bg-white shadow-2xl p-10 rounded-xl w-4/5 overflow-scroll flex gap-5 flex-col relative">
+					<!-- close button -->
+					<button id="close-modal" class="absolute top-4 right-4"><img src="images/close.svg" alt="" class="w-5 h-5"></button>
+					<!-- modal title -->
+					<h1 class="text-4xl" id="modal-title"></h1>
+					<!-- article details -->
+					<div class="flex gap-8">
+						<!-- author details -->
+						<div class="flex items-center gap-4">
+							<img src="" alt="" id="modal-author-image" class="w-10 h-10">
+							<span id="modal-author-name"></span>
+						</div>
+						<!-- total views -->
+						<div class="flex items-center gap-2">
+							<img src="images/eye.svg" alt="" class="w-5 h-5">
+							<span id="modal-total-view"></span>
+						</div>
+					</div>
+					<!-- modal paragraph -->
+					<p id="modal-text"></p>
+				</div>
+			</section>
+			<!-- article -->
+      <section class="flex flex-col gap-8 my-8" id="article"></section>
     </main>
 
 		<footer class="my-4 justify-center flex bottom-0 w-full">
