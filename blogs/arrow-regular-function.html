@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boom News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="grid gap-16">
+    <header class="pt-8 mx-8 grid gap-8">
+      <section class="flex justify-between flex-column mx-10 logo-and-link">
+        <div class="text-2xl">
+          <a href="../index.html"
+            ><span class="bg-red-400 text-white px-4 py-2 rounded mr-2"
+              >Boom</span
+            >News</a
+          >
+        </div>
+
+        <div>
+          <ul class="flex flex-column gap-x-8 navlink">
+            <li><a href="../index.html">News</a></li>
+            <li class="text-red-400"><a href="../blog/blog.html">Blog</a></li>
+          </ul>
+        </div>
+      </section>
+      <hr />
+    </header>
+    <main class="mx-16 my-8">
+      <section class="flex flex-col gap-8">
+        <h2 class="text-5xl text-center">
+          Differences between arrow function and regular function
+        </h2>
+        <p>
+          A lot of shiny new features came out with ES2015 (ES6). One of the
+          features that came with ES6 is the addition of arrow function. Also
+          known as fat arrow function.
+        </p>
+        <h3 class="text-3xl">Syntax</h3>
+        <p>Here's the example:</p>
+        <div class="flex justify-center">
+          <code class="bg-slate-200 px-6 py-4">
+            <p>// ES5</p>
+            <p>var add = function(x, y) {</p>
+            <span class="ml-8">return x + y;</span>
+            <p>};</p>
+            <p>// ES6</p>
+            <p>let add = (x, y) => x + y</p>
+          </code>
+        </div>
+
+        <h3 class="text-3xl">Arguments binding</h3>
+        <p>
+          In regular function, Arguments keywords can be used to access the
+          arguments of which passed to function.
+        </p>
+        <div class="flex justify-center">
+          <code class="bg-slate-200 px-6 py-4">
+            <p>function regularFunction(a,b) {</p>
+            <span class="ml-8">console.log(arguments)</span>
+            <p>};</p>
+            <p>regularFunction(1,2)</p>
+            <p>// Arguments[1,2]</p>
+          </code>
+        </div>
+        <p>Arrow functions do not have an arguments binding.</p>
+        <div class="flex justify-center">
+          <code class="bg-slate-200 px-6 py-4">
+            <p>const arrowFunction = (a,b) => {</p>
+            <span class="ml-8">console.log(arguments)</span>
+            <p>}</p>
+            <p>regularFunction(1,2)</p>
+            <p>//ReferenceError: arguments is not defined</p>
+          </code>
+        </div>
+
+        <h3 class="text-3xl">new</h3>
+        <p>
+          Regular functions are constructible, they can be called using the new
+          keyword.
+        </p>
+        <div class="flex justify-center">
+          <code class="bg-slate-200 px-6 py-4">
+            <p>function add (x, y) {</p>
+            <span class="ml-8">console.log(x + y)</span>
+            <p>}</p>
+            <p>let sum = new add(2,3);</p>
+            <p>//5</p>
+          </code>
+        </div>
+        <p>
+          However, arrow functions can never be used as constructor functions.
+          Hence, they can never be invoked with the new keyword
+        </p>
+        <div class="flex justify-center">
+          <code class="bg-slate-200 px-6 py-4">
+            <p>let add = (x, y) => console.log(x + y);</p>
+            <p>const sum = new add(2,4);</p>
+            <p>// TypeError: add is not a constructor</p>
+          </code>
+        </div>
+        <h6 class="text-xl">Thank you for reading 🙂</h6>
+      </section>
+    </main>
+  </body>
+</html>
