@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../styles/blog.css" />
   </head>
   <body class="grid gap-16">
+    <!-- header -->
     <header class="pt-8 mx-8 grid gap-8">
       <section class="flex justify-between flex-column mx-10 logo-and-link">
         <div class="text-2xl">
@@ -29,5 +30,49 @@
       </section>
       <hr />
     </header>
+
+    <main class="mx-16 grid grid-cols-2 gap-4 blogs">
+      <!-- first blog -->
+      <div class="shadow-2xl rounded p-10 flex flex-col gap-4">
+        <h3 class="text-3xl">Differences between var, let and cost</h3>
+
+        <p>
+          A lot of shiny new features came out with ES2015 (ES6). One of the
+          features that came with ES6 is the addition of let and const, which
+          can be used for variable declaration. The question is, what makes them
+          different from good ol' var which we've been using?
+        </p>
+        <a href="var-let-const.html" class="underline decoration-solid"
+          >Show More...</a
+        >
+      </div>
+      <!-- second blog -->
+      <div class="shadow-2xl rounded p-10 flex flex-col gap-4">
+        <h3 class="text-3xl">
+          Differences between arrow function and regular function
+        </h3>
+        <p>
+          A lot of shiny new features came out with ES2015 (ES6). One of the
+          features that came with ES6 is the addition of arrow function. Also
+          known as fat arrow function.
+        </p>
+        <a href="arrow-regular-function.html" class="underline decoration-solid"
+          >Show More...</a
+        >
+      </div>
+      <!-- third blog -->
+      <div class="shadow-2xl rounded p-10 flex flex-col gap-4">
+        <h3 class="text-3xl">Why you should use template string</h3>
+
+        <p>
+          Introduced in ES6 these are formatted strings with the ability to
+          inject JavaScript. Native. Like, right out of the box (webpack, Bable,
+          etc notwithstanding).
+        </p>
+        <a href="template-literals.html" class="underline decoration-solid"
+          >Show More...</a
+        >
+      </div>
+    </main>
   </body>
 </html>
