@@ -59,6 +59,19 @@ async function generateNavLinks() {
 
 generateNavLinks();
 
+let isHamburgerMenuOpen = false;
+
+hamburgerMenu.addEventListener('click', () => {
+	if(isHamburgerMenuOpen) {
+		navLinksList.style.display = 'none';
+		isHamburgerMenuOpen = false;
+	}
+	else {
+		navLinksList.style.display = 'flex';
+		isHamburgerMenuOpen = true;
+	}
+});
+
 async function generateNews(id) {
 	article.innerHTML = '';
 	const url = `https://openapi.programming-hero.com/api/news/category/${id}`
