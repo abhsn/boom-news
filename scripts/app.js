@@ -11,6 +11,7 @@ const modalAuthorName = document.getElementById('modal-author-name');
 const modalTotalView = document.getElementById('modal-total-view');
 const hamburgerMenu = document.getElementById('hamburger');
 
+// generates categories dynamically in category section
 async function generateNavLinks() {
 	const url = 'https://openapi.programming-hero.com/api/news/categories';
 	const res = await fetch(url);
@@ -52,9 +53,13 @@ async function generateNavLinks() {
 			generateNews(buttonId);
 			categoryItemCounter(buttonId, e.target.innerText);
 		});
+		// appends a tag to li tag
 		li.appendChild(navlink);
+		// appends li tag to ul tag
 		navLinksList.appendChild(li);
 	});
+
+	// automatically selects first category
 	document.querySelector('[data-id]').click();
 }
 
@@ -62,6 +67,7 @@ generateNavLinks();
 
 let isHamburgerMenuOpen = false;
 
+// opens and closes category lists after clicking on hamburger
 hamburgerMenu.addEventListener('click', () => {
 	if(isHamburgerMenuOpen) {
 		navLinksList.style.display = 'none';
@@ -73,15 +79,20 @@ hamburgerMenu.addEventListener('click', () => {
 	}
 });
 
+// generates news on clicking on category
 async function generateNews(id) {
+
+	// remove previous news
 	article.innerHTML = '';
 	const url = `https://openapi.programming-hero.com/api/news/category/${id}`
 	const res = await fetch(url);
 	const data = await res.json();
 	const articleArray = await data.data;
 	
-	console.log(articleArray.length);
+	// rating stars
 	let totalStar = 5;
+
+	// dynamically adds every news to section
 	await articleArray.forEach(element => {
 		
 		// creates each article section
@@ -93,6 +104,7 @@ async function generateNews(id) {
 		const imageDiv = document.createElement('div');
 		imageDiv.classList.add('flex', 'items-center', 'justify-center');
 		const image = document.createElement('img');
+		// adds news image
 		image.setAttribute('src', element.thumbnail_url);
 		imageDiv.appendChild(image);
 
@@ -110,8 +122,6 @@ async function generateNews(id) {
 		articleText.appendChild(articleParagraph);
 		textDiv.appendChild(articleText);
 		
-		
-
 		const articleDetails = document.createElement('div');
 		articleDetails.classList.add('flex', 'justify-between', 'items-center', 'article-details');
 
@@ -126,14 +136,12 @@ async function generateNews(id) {
 		author.appendChild(authorImage);
 		author.appendChild(authorName);
 		
-
 		const totalView = document.createElement('div');
 		totalView.classList.add('flex', 'justify-center', 'items-center');
 		const totalViewEye = document.createElement('img');
 		totalViewEye.src = 'images/eye.svg';
 		totalViewEye.classList.add('w-5', 'mr-2');
 		
-
 		const totalViewCounter = document.createElement('p');
 		totalViewCounter.innerText = element.total_view === null ? 'No valid data found' : element.total_view;
 
@@ -147,6 +155,7 @@ async function generateNews(id) {
 		ratingNumberText.innerText = ratingNumber;
 		ratingNumberFloor = Math.floor(ratingNumber);
 		
+		// adds full star
 		for(let i = 0; i < ratingNumberFloor; i++) {
 			const star = document.createElement('img');
 			star.src = 'images/star-full.svg';
@@ -155,6 +164,7 @@ async function generateNews(id) {
 			totalStar--;
 		}
 
+		// adds half star
 		if(ratingNumber.toString().split('.')[1] !== 0) {
 			const star = document.createElement('img');
 			star.src = 'images/star-half.svg';
@@ -163,6 +173,7 @@ async function generateNews(id) {
 			totalStar--;
 		}
 
+		// adds empty star
 		for(let i = 0; i < totalStar; i++) {
 			const star = document.createElement('img');
 			star.src = 'images/star-empty.svg';
@@ -185,23 +196,29 @@ async function generateNews(id) {
 		showMoreButtonImage.classList.add('w-5');
 		showMoreButton.appendChild(showMoreButtonImage);
 
+		// adds author name, total view, rating and show more button to article
 		articleDetails.appendChild(author);
 		articleDetails.appendChild(totalView);
 		articleDetails.appendChild(rating);
 		articleDetails.appendChild(showMoreButton);
 
+		// adds article details(author name, views etc) to article
 		textDiv.appendChild(articleDetails);
 
 		// appends text and image divs to parent div
 		articleSection.appendChild(imageDiv);
 		articleSection.appendChild(textDiv);
 
+		// appends each article to article section
 		article.appendChild(articleSection);
+
+		// adds event listener on every article that invokes modal
 		articleSection.addEventListener('click', (e) => {
 			e.preventDefault();
 			openModal(element.title, element.details, element.author, element.total_view);
 		});
 	});
+	// remove spinner
 	document.getElementById('spinner').classList.add('hidden');
 }
 
