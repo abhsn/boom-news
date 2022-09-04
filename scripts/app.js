@@ -9,6 +9,7 @@ const modalButton = document.getElementById('close-modal');
 const modalAuthorImage = document.getElementById('modal-author-image');
 const modalAuthorName = document.getElementById('modal-author-name');
 const modalTotalView = document.getElementById('modal-total-view');
+const hamburgerMenu = document.getElementById('hamburger');
 
 async function generateNavLinks() {
 	const url = 'https://openapi.programming-hero.com/api/news/categories';
