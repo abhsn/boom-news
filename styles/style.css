@@ -7,16 +7,18 @@
 	animation: spin 0.7s linear infinite;
 }
 
-#modal {
-	backdrop-filter: blur(10px);
-	max-width: 80%;
-	max-height: 80%;
-}
-
 @keyframes spin {
 	to {
 		transform: rotate(360deg);
 	}
+}
+#modal {
+	max-height: 80vh;
+	max-width: 80%;
+}
+
+#modal-container {
+	backdrop-filter: blur(5px);
 }
 
 @media screen and (max-width: 480px) {
@@ -29,7 +31,27 @@
 		gap: 16px;
 		flex-direction: column;
 	}
-	.blogs {
-		grid-template-columns: repeat(1, 1fr) !important;
+	.dynamic-category {
+		display: none;
+	}
+	.text-div {
+		width: 100%;
+	}
+	.article-section {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.article-details {
+		flex-direction: column;
+		gap: 10px;
+	}
+	#navlinks {
+		display: none;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+	}
+	#hamburger {
+		display: flex;
 	}
 }
