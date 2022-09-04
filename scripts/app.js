@@ -1,6 +1,6 @@
 const navLinksList = document.getElementById('navlinks');
 const categoryItem = document.getElementById('category-item-counter');
-
+const article = document.getElementById('article');
 
 async function generateNavLinks() {
 	const url = 'https://openapi.programming-hero.com/api/news/categories';
@@ -50,3 +50,135 @@ async function generateNavLinks() {
 }
 
 generateNavLinks();
+
+async function generateNews(id) {
+	article.innerHTML = '';
+	const url = `https://openapi.programming-hero.com/api/news/category/${id}`
+	const res = await fetch(url);
+	const data = await res.json();
+	const articleArray = await data.data;
+	
+	console.log(articleArray.length);
+	let totalStar = 5;
+	await articleArray.forEach(element => {
+		
+		// creates each article section
+		const articleSection = document.createElement('div');
+		articleSection.classList.add('flex', 'gap-x-4', 'p-4', 'rounded', 'shadow-2xl', 'cursor-pointer', 'article-section');
+		// console.log(element);
+		
+		// image section
+		const imageDiv = document.createElement('div');
+		imageDiv.classList.add('flex', 'items-center', 'justify-center');
+		const image = document.createElement('img');
+		image.setAttribute('src', element.thumbnail_url);
+		imageDiv.appendChild(image);
+
+		// text section
+		const textDiv = document.createElement('div');
+		textDiv.classList.add('w-3/4', 'flex', 'flex-col', 'gap-4', 'text-div');
+		const articleText = document.createElement('div');
+		articleText.classList.add('flex', 'flex-col', 'gap-y-4');
+		const articleTitle = document.createElement('h3');
+		articleTitle.classList.add('text-3xl');
+		articleTitle.innerText = element.title;
+		const articleParagraph = document.createElement('p');
+		articleParagraph.innerText = element.details.length >= 500 ? element.details.slice(0,500).concat('...') : element.details;
+		articleText.appendChild(articleTitle);
+		articleText.appendChild(articleParagraph);
+		textDiv.appendChild(articleText);
+		
+		
+
+		const articleDetails = document.createElement('div');
+		articleDetails.classList.add('flex', 'justify-between', 'items-center', 'article-details');
+
+		const author = document.createElement('div');
+		author.classList.add('flex', 'items-center', 'gap-x-2');
+		const authorImage = document.createElement('img');
+		authorImage.setAttribute('src', element.author.img);
+		authorImage.classList.add('w-10');
+		authorImage.style.borderRadius = '50%';
+		const authorName = document.createElement('h4');
+		authorName.innerText = (element.author.name === null || element.author.name === '' || element.author.name === undefined) ? 'No valid data found' : element.author.name;
+		author.appendChild(authorImage);
+		author.appendChild(authorName);
+		
+
+		const totalView = document.createElement('div');
+		totalView.classList.add('flex', 'justify-center', 'items-center');
+		const totalViewEye = document.createElement('img');
+		totalViewEye.src = 'images/eye.svg';
+		totalViewEye.classList.add('w-5', 'mr-2');
+		
+
+		const totalViewCounter = document.createElement('p');
+		totalViewCounter.innerText = element.total_view === null ? 'No valid data found' : element.total_view;
+
+		totalView.appendChild(totalViewEye);
+		totalView.appendChild(totalViewCounter);
+
+		const rating = document.createElement('div');
+		rating.classList.add('flex', 'gap-x-2');
+		const ratingNumberText = document.createElement('p');
+		let ratingNumber = element.rating.number;
+		ratingNumberText.innerText = ratingNumber;
+		ratingNumberFloor = Math.floor(ratingNumber);
+		
+		for(let i = 0; i < ratingNumberFloor; i++) {
+			const star = document.createElement('img');
+			star.src = 'images/star-full.svg';
+			star.classList.add('w-5')
+			rating.appendChild(star);
+			totalStar--;
+		}
+
+		if(ratingNumber.toString().split('.')[1] !== 0) {
+			const star = document.createElement('img');
+			star.src = 'images/star-half.svg';
+			star.classList.add('w-5')
+			rating.appendChild(star);
+			totalStar--;
+		}
+
+		for(let i = 0; i < totalStar; i++) {
+			const star = document.createElement('img');
+			star.src = 'images/star-empty.svg';
+			star.classList.add('w-5')
+			rating.appendChild(star);
+			totalStar--;
+		}
+		
+		rating.appendChild(ratingNumberText);
+
+		const showMoreButton = document.createElement('a');
+		showMoreButton.href = '';
+		showMoreButton.addEventListener('click', (e) => {
+			e.preventDefault();
+			openModal(element.title, element.details, element.author, element.total_view);
+		});
+
+		const showMoreButtonImage = document.createElement('img');
+		showMoreButtonImage.src = 'images/arrow-right.svg';
+		showMoreButtonImage.classList.add('w-5');
+		showMoreButton.appendChild(showMoreButtonImage);
+
+		articleDetails.appendChild(author);
+		articleDetails.appendChild(totalView);
+		articleDetails.appendChild(rating);
+		articleDetails.appendChild(showMoreButton);
+
+		textDiv.appendChild(articleDetails);
+
+		// appends text and image divs to parent div
+		articleSection.appendChild(imageDiv);
+		articleSection.appendChild(textDiv);
+
+		article.appendChild(articleSection);
+		articleSection.addEventListener('click', (e) => {
+			e.preventDefault();
+			openModal(element.title, element.details, element.author, element.total_view);
+		});
+	});
+	document.getElementById('spinner').classList.add('hidden');
+}
