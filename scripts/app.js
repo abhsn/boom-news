@@ -1,6 +1,14 @@
 const navLinksList = document.getElementById('navlinks');
 const categoryItem = document.getElementById('category-item-counter');
 const article = document.getElementById('article');
+const modalContainer = document.getElementById('modal-container');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalText = document.getElementById('modal-text');
+const modalButton = document.getElementById('close-modal');
+const modalAuthorImage = document.getElementById('modal-author-image');
+const modalAuthorName = document.getElementById('modal-author-name');
+const modalTotalView = document.getElementById('modal-total-view');
 
 async function generateNavLinks() {
 	const url = 'https://openapi.programming-hero.com/api/news/categories';
@@ -196,4 +204,15 @@ async function categoryItemCounter(id, category_name) {
 		categoryItem.innerText = `Nothing found in ${category_name}`
 		categoryItem.parentElement.classList.remove('hidden');
  }
+}
+
+function openModal(title, article, author, view) {
+	modalContainer.style.opacity = 1;
+	modalContainer.style.pointerEvents = 'all';
+	modalTitle.innerText = title;
+	modalText.innerText = article;
+	modalAuthorImage.src = author.img;
+	modalAuthorImage.style.borderRadius = '50%';
+	modalAuthorName.innerText = author.name;
+	modalTotalView.innerText = view;
 }
