@@ -1,50 +1,52 @@
-// news category api link
-const url = 'https://openapi.programming-hero.com/api/news/categories';
 const navLinksList = document.getElementById('navlinks');
-// const navlinks = () => fetch(url)
-// 	.then(res => res.json())
-// 	.then(data => {
-// 		let links = [];
-// 		data.data.news_category.forEach(element => {
-// 			links.push(element);
-// 		})
-// 		console.log(links);
-// 	});
+const categoryItem = document.getElementById('category-item-counter');
 
-// let navlinks = [];
-
-// function generateNavLinks() {
-// 	fetch(url)
-// 	.then(res => res.json())
-// 	.then(data => {
-// 		navlinks = data.data.news_category;
-// 	});
-// }
 
 async function generateNavLinks() {
-	// const links = [];
+	const url = 'https://openapi.programming-hero.com/api/news/categories';
 	const res = await fetch(url);
 	const data = await res.json();
 	await data.data.news_category.forEach(element => {
+		
+		// creates li tag
 		const li = document.createElement('li');
+
+		// creates a tag
 		const navlink = document.createElement('a');
+
+		// changes a tag's inner text to dynamic value
 		navlink.innerText = element.category_name;
+		navlink.setAttribute('href', '#');
+
+		// set dynamically gotten id to data attribute
+		navlink.setAttribute('data-id', element.category_id);
+
+		// adds eventlistner
+		navlink.addEventListener('click', (e) => {
+
+			// removes category counter
+			categoryItem.parentElement.classList.add('hidden');
+
+			// loads spinner when a link is clicked
+			document.getElementById('spinner').classList.remove('hidden');
+
+			// removes color if previously added
+			document.querySelectorAll('#navlinks li a').forEach(el => {
+				el.classList.remove('text-red-400');
+			});
+
+			// adds color to selected link
+			e.target.classList.add('text-red-400');
+
+			const buttonId = e.target.getAttribute('data-id')
+			// generates news dynamically when a button is clicked
+			generateNews(buttonId);
+			categoryItemCounter(buttonId, e.target.innerText);
+		});
 		li.appendChild(navlink);
 		navLinksList.appendChild(li);
-		console.log(element)
 	});
-	// await console.log(links);
+	document.querySelector('[data-id]').click();
 }
 
 generateNavLinks();
-
-// const linksArray = generateNavLinks();
-
-
-// const links = generateNavLinks();
-
-// console.log(navlinks);
-
-// for(link of links) {
-// 	console.log(link)
-// }
