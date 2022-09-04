@@ -182,3 +182,18 @@ async function generateNews(id) {
 	});
 	document.getElementById('spinner').classList.add('hidden');
 }
+
+async function categoryItemCounter(id, category_name) {
+	const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
+	const data = await res.json();
+	const arrayLength = await data.data.length;
+	// console.log(arrayLength)
+	if(arrayLength !== 0) {
+		categoryItem.innerText = `${category_name} has ${arrayLength} items`
+		categoryItem.parentElement.classList.remove('hidden');
+ }
+ else {
+		categoryItem.innerText = `Nothing found in ${category_name}`
+		categoryItem.parentElement.classList.remove('hidden');
+ }
+}
