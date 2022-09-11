@@ -91,7 +91,6 @@ async function generateNews(id) {
 
 	const myPromise = new Promise(async (resolve, reject) => {
 		articleArray = await data.data;
-		console.log(articleArray);
 		resolve(articleArray.sort((first, second) => {
 			return second.total_view - first.total_view;
 		}));
